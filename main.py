@@ -2,13 +2,18 @@ import requests
 import time
 import json
 import pandas
+import os
+from dotenv import dotenv_values
+from decouple import config
+
+API_key = config("THE_API_KEY")
 
 file_path = str(input('Enter File Path: '))
 domain_CSV = pandas.read_csv((file_path))
 
 Urls = domain_CSV['Domain'].tolist()
 
-API_key = 'a6343fc0cf89304335352937d465b84e29c97bc2ecc82d43ec0bd16bfd27c2e5'
+
 url = 'https://www.virustotal.com/vtapi/v2/url/report'
 
 for i in Urls:
@@ -16,10 +21,10 @@ for i in Urls:
     response = requests.get(url=url, params=parameters)
     json_response = json.loads(response.text)
     if json_response['response_code'] <= 0:
-        with open('Virustotal Clean results.txt', 'a') as clean:
+        with open('Clean.txt', 'a') as clean:
             clean.write(i) and clean.write("\tNot Malicious\n")
     else:
-        with open ('Virustotal Malicious result.txt', 'a') as malicious:
+        with open ('Malicious.txt', 'a') as malicious:
             malicious.write(i) and malicious.write("\t malicious \n")
 
     time.sleep(20)
