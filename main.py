@@ -2,8 +2,6 @@ import requests
 import time
 import json
 import pandas
-import os
-from dotenv import dotenv_values
 from decouple import config
 
 API_key = config("THE_API_KEY")
