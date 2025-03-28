@@ -1,10 +1,14 @@
+from dotenv import load_dotenv
 import requests
 import time
 import json
 import pandas
 from decouple import config
+import os
 
-API_key = config("THE_API_KEY")
+load_dotenv()
+api_key = os.getenv("API_KEY")
+API_key = api_key
 
 file_path = str(input('Enter File Path: '))
 domain_CSV = pandas.read_csv((file_path))
